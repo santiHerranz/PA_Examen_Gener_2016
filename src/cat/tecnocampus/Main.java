@@ -16,10 +16,17 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /*
         System.out.println("Quantes joguines tenim?");
         int qJoguines = Keyboard.readInt();
+        */
+        int qJoguines = 4;
+        /*
         System.out.println("Quants nens tenim?");
         int qNens = Keyboard.readInt();
+        */
+        int qNens = 2;
+
         Repartiment r = new Repartiment(qJoguines, qNens);
 
         // TODO Exercici 3

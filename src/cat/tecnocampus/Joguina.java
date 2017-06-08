@@ -7,6 +7,7 @@ package cat.tecnocampus;
         public static final int VISTA=3;
         public static final int GUST=4;
         public static final int TACTE=5;
+
         private int identificacio; //identifica la joguina private int edatMinim;
         private int edatMinim;
         private int edatMaxim;

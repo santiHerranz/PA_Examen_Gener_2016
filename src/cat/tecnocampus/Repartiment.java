@@ -5,6 +5,7 @@ public class Repartiment {
     private Joguina[] joguines;
     private Nen[] nens;
 
+    // atributs
     private Joguina sol[];
     private boolean marcats[];
 
@@ -58,24 +59,41 @@ public class Repartiment {
                 if (k == nens.length) {
                     // fulla de l'arbre
                     if (esMillor()) {
-                        for (int m = 0; m < nens.length; m++) millor[m] = sol[m];
+                        for (int m = 0; m < nens.length; m++)
+                            millor[m] = sol[m];
                         for (int m = 0; m < marcats.length; m++)
                             marcatsMillor[m] = marcats[m];
                     }
-                }
-            } else
-                trobarMillor(k + 1);
-            marcats[k] = false;
-            sol[k] = null;
+                } else
+                    trobarMillor(k + 1);
+                marcats[k] = false;
+                sol[k] = null;
+            }
         }
     }
 
+    private boolean acceptable(Joguina joguina, Nen nen) {
+
+        boolean sexe = (nen.getMascle() && joguina.getSexe() != 1) ||
+                (!nen.getMascle() && joguina.getSexe() != 0);
+        return sexe && nen.getEdat() >= joguina.getEdatMaxim()
+                && nen.getEdat() <= joguina.getEdatMinima()
+                && nen.getSentit() == joguina.getSentit1()
+                || nen.getSentit() == joguina.getSentit2();
+    }
+
     private boolean esMillor() {
+
+        int suma = 0;
+        for (int i = 0; i < marcats.length; i++)
+            if (!marcats[i])
+                suma += joguines[i].getGrauIdonietat();
+        if (idonietatMillor < suma) {
+            idonietatMillor = suma;
+            return true;
+        }
         return false;
     }
 
-    private boolean acceptable(Joguina joguine, Nen nen) {
-        return false;
-    }
 }
 
