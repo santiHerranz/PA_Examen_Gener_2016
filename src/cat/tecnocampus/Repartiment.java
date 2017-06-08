@@ -2,28 +2,80 @@ package cat.tecnocampus;
 
 public class Repartiment {
 
-    private Jogina []jogines;
+    private Joguina[] joguines;
+    private Nen[] nens;
 
-    private Jogina sol[];
+    private Joguina sol[];
     private boolean marcats[];
 
-    private Jogina millor[];
-    private boolean marcatsMillors[];
+    private Joguina millor[];
+    private boolean marcatsMillor[];
 
-
-    private Nen [] nens;
     public int idonietatMillor;
 
     public Repartiment(int qJoguines, int qNens) {
-
+        joguines = ompleJoguines(qJoguines);
+        nens = ompleNens(qNens);
+        // omplena Exercici 2
+        sol = new Joguina[qNens];
+        millor = new Joguina[qNens];
+        marcats = new boolean[qJoguines];
+        marcatsMillor = new boolean[qJoguines];
+        for (int i = 0; i < marcats.length; i++) {
+            marcats[i] = false;
+            marcatsMillor[i] = false;
+        }
+        idonietatMillor = -1; // s'ha de maximitzar, el valor minim es 0
     }
 
-    private Jogina[] ompleJoguines() {
-        //
-        return null;
+    private Nen[] ompleNens(int qNens) {
+        Nen[] result = new Nen[qNens];
+        for (int i = 0; i < result.length ; i++) {
+            result[i] = new Nen("", 1,1, true);
+        }
+
+        return result;
     }
 
-    public void trobarMillor(int i) {
+    private Joguina[] ompleJoguines(int qJoguines) {
 
+        Joguina[] result = new Joguina[qJoguines];
+        for (int i = 0; i < result.length ; i++) {
+            result[i] = new Joguina(1,4,7, 1, 1, 2, 2);
+        }
+        return result;
+    }
+
+
+
+    public void trobarMillor(int k) { // alma - Exercici 4
+        // la K indica el nivell, el nen a gmi se li busca regal
+        // la i la joguina
+        for (int i = 0; i < joguines.length; i++) {
+            if (!marcats[i] && acceptable(joguines[i], nens[k])) {
+                marcats[k] = true;
+                sol[k] = joguines[i];
+                if (k == nens.length) {
+                    // fulla de l'arbre
+                    if (esMillor()) {
+                        for (int m = 0; m < nens.length; m++) millor[m] = sol[m];
+                        for (int m = 0; m < marcats.length; m++)
+                            marcatsMillor[m] = marcats[m];
+                    }
+                }
+            } else
+                trobarMillor(k + 1);
+            marcats[k] = false;
+            sol[k] = null;
+        }
+    }
+
+    private boolean esMillor() {
+        return false;
+    }
+
+    private boolean acceptable(Joguina joguine, Nen nen) {
+        return false;
     }
 }
+

@@ -1,6 +1,6 @@
 package cat.tecnocampus;
 
-    public class Jogina {
+    public class Joguina {
 
         public static final int OIDA=1;
         public static final int OLFAT=2;
@@ -15,13 +15,17 @@ package cat.tecnocampus;
         private int grauIdonietat; //valor [0,10]
 
         private int sexe; // 0‐‐> nen; 1‐‐> nena; 2‐‐> ambdos
-        private Jogina(int iden, int edatMinim, int edatMaxim, int sentit1, int sentit2, int grau, int sexe){
+
+        public Joguina(int iden, int edatMinim, int edatMaxim, int sentit1, int sentit2, int grau, int sexe){
             this.identificacio=iden;
             this.edatMinim=edatMinim;
             this.edatMaxim=edatMaxim;
             this.sentit1=sentit1;this.sentit2=sentit2;
-            this.grauIdonietat=grau;this.sexe=sexe;
+            this.grauIdonietat=grau;
+            this.sexe=sexe;
         }
+
+
 
         public int getIdentificador(){return identificacio;}
         public int getEdatMinima(){return edatMinim;}
