@@ -26,6 +26,20 @@ public class Nen {
 
     @Override
     public String toString() {
-        return nom +"("+ edat +")";
+        return nom +"("+ edat +") "+ getSentitNom(sentit);
     }
+
+    public static String getSentitNom(int sentit){
+        switch (sentit) {
+            case OIDA:  return "OIDA";
+            case OLFAT: return "OLFAT";
+            case VISTA: return "VISTA";
+            case GUST:  return "GUST";
+            case TACTE: return "TACTE";
+            default: return "";
+        }
+    }
+
+
+
 }

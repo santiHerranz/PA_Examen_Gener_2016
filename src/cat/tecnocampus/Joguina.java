@@ -30,7 +30,7 @@ package cat.tecnocampus;
 
         public int getIdentificador(){return identificacio;}
         public int getEdatMinima(){return edatMinim;}
-        public int getEdatMaxim(){return edatMaxim;}
+        public int getEdatMaxima(){return edatMaxim;}
         public int getSentit1(){return sentit1;}
         public int getSentit2(){return sentit2;}
         public int getGrauIdonietat(){return grauIdonietat;}
@@ -38,7 +38,7 @@ package cat.tecnocampus;
 
 
         public String toString() {
-            return identificacio +"\t("+ edatMinim +"-"+ edatMaxim +")\t"+ sentit1 +","+ sentit2 +"";
+            return identificacio +"\t("+ edatMinim +"-"+ edatMaxim +")\t"+ Nen.getSentitNom(sentit1) +","+ Nen.getSentitNom(sentit2) +"";
         }
 
     }

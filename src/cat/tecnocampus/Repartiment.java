@@ -36,13 +36,13 @@ public class Repartiment {
             result[0] = new Nen("Jordi", 5,Joguina.GUST, true);
 
         if(qNens>1)
-            result[1] = new Nen("Rosa", 4,Joguina.GUST, false);
+            result[1] = new Nen("Rosa", 4,Joguina.VISTA, false);
 
         if(qNens>2)
-            result[2] = new Nen("Biel", 4,Joguina.GUST, true);
+            result[2] = new Nen("Biel", 4,Joguina.OIDA, true);
 
         if(qNens>3)
-            result[3] = new Nen("Marta", 4,Joguina.GUST, true);
+            result[3] = new Nen("Marta", 4,Joguina.OLFAT, true);
 
         return result;
     }
@@ -73,7 +73,6 @@ public class Repartiment {
     }
 
 
-
     public void trobarMillor(int k) { // alma - Exercici 4
         // la K indica el nivell, el nen a gmi se li busca regal
         // la i la joguina
@@ -95,40 +94,35 @@ public class Repartiment {
 
     private boolean acceptable(Joguina joguina, Nen nen) {
 
-        boolean sexe = (nen.getMascle() && joguina.getSexe() != 1) ||
-                (!nen.getMascle() && joguina.getSexe() != 0);
+        boolean sexe = (nen.getMascle() && joguina.getSexe() == 0)
+                || (!nen.getMascle() && joguina.getSexe() == 1)
+                || joguina.getSexe() == 2;
 
         boolean edat = nen.getEdat() >= joguina.getEdatMinima()
-                && nen.getEdat() <= joguina.getEdatMaxim()
+                && nen.getEdat() <= joguina.getEdatMaxima();
 
-        boolean sentits = (
-                        nen.getSentit() == joguina.getSentit1()
-                        || nen.getSentit() == joguina.getSentit2()
-                   );
+        boolean sentits = nen.getSentit() == joguina.getSentit1()
+                        || nen.getSentit() == joguina.getSentit2();
 
         return sexe && edat && sentits;
     }
 
     private void esMillor() {
 
-        boolean b= false;
-
         int suma = 0;
         for (int i = 0; i < marcats.length; i++)
             if (!marcats[i])
                 suma += joguines[i].getGrauIdonietat();
-        if (idonietatMillor < suma) {
-            idonietatMillor = suma;
-            b = true;
-        }
 
-        if (b) {
-            for (int m = 0; m < nens.length; m++)
+        if (idonietatMillor < suma) {
+            // es millor solucio, guardar a taula millor i joguines marcades
+            idonietatMillor = suma;
+
+            for (int m = 0; m < sol.length; m++)
                 millor[m] = sol[m];
             for (int m = 0; m < marcats.length; m++)
                 marcatsMillor[m] = marcats[m];
         }
-
     }
 
 
