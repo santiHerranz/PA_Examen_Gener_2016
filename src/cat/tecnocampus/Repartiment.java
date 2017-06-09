@@ -33,7 +33,7 @@ public class Repartiment {
         Nen[] result = new Nen[qNens];
 
         if(qNens>0)
-            result[0] = new Nen("Jordi", 4,Joguina.GUST, true);
+            result[0] = new Nen("Jordi", 5,Joguina.GUST, true);
 
         if(qNens>1)
             result[1] = new Nen("Rosa", 4,Joguina.GUST, false);
@@ -52,7 +52,7 @@ public class Repartiment {
         Joguina[] result = new Joguina[qJoguines];
 
         if(qJoguines>0)
-            result[0] = new Joguina(1,2,6, Joguina.GUST, Joguina.TACTE, 2, 2);
+            result[0] = new Joguina(1,2,4, Joguina.GUST, Joguina.TACTE, 2, 2);
 
         if(qJoguines>1)
             result[1] = new Joguina(2,2,6, Joguina.OIDA, Joguina.OLFAT, 2, 2);
@@ -80,7 +80,7 @@ public class Repartiment {
         for (int i = 0; i < joguines.length; i++) {
             if (!marcats[i])
                 if (acceptable(joguines[i], nens[k])) {
-                    marcats[k] = true;
+                    marcats[i] = true;
                     sol[k] = joguines[i];
                     if (k == nens.length-1) {
                         // fulla de l'arbre
@@ -92,7 +92,7 @@ public class Repartiment {
                         }
                     } else
                         trobarMillor(k + 1);
-                    marcats[k] = false;
+                    marcats[i] = false;
                     sol[k] = null;
                 }
         }
@@ -103,10 +103,13 @@ public class Repartiment {
         boolean sexe = (nen.getMascle() && joguina.getSexe() != 1) ||
                 (!nen.getMascle() && joguina.getSexe() != 0);
 
-        return sexe && nen.getEdat() >= joguina.getEdatMinima()
+        return sexe
+                && nen.getEdat() >= joguina.getEdatMinima()
                 && nen.getEdat() <= joguina.getEdatMaxim()
-                && nen.getSentit() == joguina.getSentit1()
-                || nen.getSentit() == joguina.getSentit2();
+                && (
+                        nen.getSentit() == joguina.getSentit1()
+                        || nen.getSentit() == joguina.getSentit2()
+                   );
     }
 
     private boolean esMillor() {
