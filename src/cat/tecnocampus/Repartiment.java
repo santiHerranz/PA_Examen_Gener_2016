@@ -84,12 +84,7 @@ public class Repartiment {
                     sol[k] = joguines[i];
                     if (k == nens.length-1) {
                         // fulla de l'arbre
-                        if (esMillor()) {
-                            for (int m = 0; m < nens.length; m++)
-                                millor[m] = sol[m];
-                            for (int m = 0; m < marcats.length; m++)
-                                marcatsMillor[m] = marcats[m];
-                        }
+                        esMillor();
                     } else
                         trobarMillor(k + 1);
                     marcats[i] = false;
@@ -103,16 +98,20 @@ public class Repartiment {
         boolean sexe = (nen.getMascle() && joguina.getSexe() != 1) ||
                 (!nen.getMascle() && joguina.getSexe() != 0);
 
-        return sexe
-                && nen.getEdat() >= joguina.getEdatMinima()
+        boolean edat = nen.getEdat() >= joguina.getEdatMinima()
                 && nen.getEdat() <= joguina.getEdatMaxim()
-                && (
+
+        boolean sentits = (
                         nen.getSentit() == joguina.getSentit1()
                         || nen.getSentit() == joguina.getSentit2()
                    );
+
+        return sexe && edat && sentits;
     }
 
-    private boolean esMillor() {
+    private void esMillor() {
+
+        boolean b= false;
 
         int suma = 0;
         for (int i = 0; i < marcats.length; i++)
@@ -120,9 +119,16 @@ public class Repartiment {
                 suma += joguines[i].getGrauIdonietat();
         if (idonietatMillor < suma) {
             idonietatMillor = suma;
-            return true;
+            b = true;
         }
-        return false;
+
+        if (b) {
+            for (int m = 0; m < nens.length; m++)
+                millor[m] = sol[m];
+            for (int m = 0; m < marcats.length; m++)
+                marcatsMillor[m] = marcats[m];
+        }
+
     }
 
 
@@ -136,7 +142,7 @@ public class Repartiment {
         s += "\nEls regals sense assignar:\n";
         for (int i = 0; i < marcatsMillor.length; i++)
             if (!marcatsMillor[i])
-                s += joguines[i]
+                s = s + joguines[i]
                         + " amb un grau de idonietat:"
                         + joguines[i].getGrauIdonietat() +"\n";
         return s;
