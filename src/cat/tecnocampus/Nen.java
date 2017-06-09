@@ -23,4 +23,9 @@ public class Nen {
     public int getEdat(){return edat;}
     public int getSentit(){return sentit;}
     public boolean getMascle(){return mascle;}
+
+    @Override
+    public String toString() {
+        return nom +"("+ edat +")";
+    }
 }

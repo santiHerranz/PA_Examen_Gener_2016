@@ -31,9 +31,18 @@ public class Repartiment {
 
     private Nen[] ompleNens(int qNens) {
         Nen[] result = new Nen[qNens];
-        for (int i = 0; i < result.length ; i++) {
-            result[i] = new Nen("", 1,1, true);
-        }
+
+        if(qNens>0)
+            result[0] = new Nen("Jordi", 4,Joguina.GUST, true);
+
+        if(qNens>1)
+            result[1] = new Nen("Rosa", 4,Joguina.GUST, false);
+
+        if(qNens>2)
+            result[2] = new Nen("Biel", 4,Joguina.GUST, true);
+
+        if(qNens>3)
+            result[3] = new Nen("Marta", 4,Joguina.GUST, true);
 
         return result;
     }
@@ -41,9 +50,25 @@ public class Repartiment {
     private Joguina[] ompleJoguines(int qJoguines) {
 
         Joguina[] result = new Joguina[qJoguines];
-        for (int i = 0; i < result.length ; i++) {
-            result[i] = new Joguina(1,4,7, 1, 1, 2, 2);
-        }
+
+        if(qJoguines>0)
+            result[0] = new Joguina(1,2,6, Joguina.GUST, Joguina.TACTE, 2, 2);
+
+        if(qJoguines>1)
+            result[1] = new Joguina(2,2,6, Joguina.OIDA, Joguina.OLFAT, 2, 2);
+
+        if(qJoguines>2)
+            result[2] = new Joguina(3,2,6, Joguina.GUST, Joguina.OIDA, 3, 2);
+
+        if(qJoguines>3)
+            result[3] = new Joguina(4,2,6, Joguina.GUST, Joguina.VISTA, 5, 2);
+
+        if(qJoguines>4)
+            result[4] = new Joguina(5,2,6, Joguina.GUST, Joguina.VISTA, 5, 2);
+
+        if(qJoguines>5)
+            result[5] = new Joguina(6,3,4, Joguina.VISTA, Joguina.TACTE, 10, 2);
+
         return result;
     }
 
@@ -53,22 +78,23 @@ public class Repartiment {
         // la K indica el nivell, el nen a gmi se li busca regal
         // la i la joguina
         for (int i = 0; i < joguines.length; i++) {
-            if (!marcats[i] && acceptable(joguines[i], nens[k])) {
-                marcats[k] = true;
-                sol[k] = joguines[i];
-                if (k == nens.length) {
-                    // fulla de l'arbre
-                    if (esMillor()) {
-                        for (int m = 0; m < nens.length; m++)
-                            millor[m] = sol[m];
-                        for (int m = 0; m < marcats.length; m++)
-                            marcatsMillor[m] = marcats[m];
-                    }
-                } else
-                    trobarMillor(k + 1);
-                marcats[k] = false;
-                sol[k] = null;
-            }
+            if (!marcats[i])
+                if (acceptable(joguines[i], nens[k])) {
+                    marcats[k] = true;
+                    sol[k] = joguines[i];
+                    if (k == nens.length-1) {
+                        // fulla de l'arbre
+                        if (esMillor()) {
+                            for (int m = 0; m < nens.length; m++)
+                                millor[m] = sol[m];
+                            for (int m = 0; m < marcats.length; m++)
+                                marcatsMillor[m] = marcats[m];
+                        }
+                    } else
+                        trobarMillor(k + 1);
+                    marcats[k] = false;
+                    sol[k] = null;
+                }
         }
     }
 
@@ -76,8 +102,9 @@ public class Repartiment {
 
         boolean sexe = (nen.getMascle() && joguina.getSexe() != 1) ||
                 (!nen.getMascle() && joguina.getSexe() != 0);
-        return sexe && nen.getEdat() >= joguina.getEdatMaxim()
-                && nen.getEdat() <= joguina.getEdatMinima()
+
+        return sexe && nen.getEdat() >= joguina.getEdatMinima()
+                && nen.getEdat() <= joguina.getEdatMaxim()
                 && nen.getSentit() == joguina.getSentit1()
                 || nen.getSentit() == joguina.getSentit2();
     }
@@ -95,5 +122,21 @@ public class Repartiment {
         return false;
     }
 
+
+    @Override
+    public String toString() {
+
+        String s = "La solució :\n";
+        for (int i = 0; i < millor.length; i++)
+            s += "Nen: "+ nens[i] +"\t Joguina: "+ millor[i] +"\n";
+
+        s += "\nEls regals sense assignar:\n";
+        for (int i = 0; i < marcatsMillor.length; i++)
+            if (!marcatsMillor[i])
+                s += joguines[i]
+                        + " amb un grau de idonietat:"
+                        + joguines[i].getGrauIdonietat() +"\n";
+        return s;
+    }
 }
 

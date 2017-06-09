@@ -35,6 +35,12 @@ package cat.tecnocampus;
         public int getSentit2(){return sentit2;}
         public int getGrauIdonietat(){return grauIdonietat;}
         public int getSexe(){return sexe;}
+
+
+        public String toString() {
+            return identificacio +"\t("+ edatMinim +"-"+ edatMaxim +")\t"+ sentit1 +","+ sentit2 +"";
+        }
+
     }
 
 

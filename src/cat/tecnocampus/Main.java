@@ -20,12 +20,12 @@ public class Main {
         System.out.println("Quantes joguines tenim?");
         int qJoguines = Keyboard.readInt();
         */
-        int qJoguines = 4;
+        int qJoguines = 6;
         /*
         System.out.println("Quants nens tenim?");
         int qNens = Keyboard.readInt();
         */
-        int qNens = 2;
+        int qNens = 4;
 
         Repartiment r = new Repartiment(qJoguines, qNens);
 
